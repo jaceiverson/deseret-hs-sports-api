@@ -1,4 +1,5 @@
 __pycache__/
-recipients.txt
 env/
 .idea/
+config.ini
+recipients.txt

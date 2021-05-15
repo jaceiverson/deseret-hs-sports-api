@@ -4,8 +4,8 @@ import datetime as dt
 import dateutil.parser as dparser
 #custom modules
 #https://github.com/jaceiverson/custom-python
-from custompython.send_email import send
-from custompython.make_config import read
+from send_email import email
+from make_config import read
 
 class DSS():
     '''
@@ -20,7 +20,10 @@ class DSS():
 
     today can be overwritten using the self._set_date(new_date) method
     '''
-    def __init__(self,url):
+    def __init__(self,
+                 url,
+                 ):
+
         self.date = dt.date.today()
         self.team_name = ' '.join(url.split('school/')[-1].split('/')[:2]).title()
 
@@ -134,29 +137,13 @@ class DSS():
 
         return today,yesterday, upcoming
 
-    def _pull_rec(self,file_path = 'recipients.txt'):
+    def email_create(self,sub,msg):
         '''
-        pulls the recipients of the email from the given filepath
-        defaults to recipients.txt
-        '''
-        rec = ''
-        with open(file_path,'r') as f:
-            rec+=f.read()
-        if isinstance(rec,list):
-            return rec.split('\n')
-        elif isinstance(rec,str):
-            return [rec]
-
-    def email(self,sub,msg):
-        '''
-        subject: str: what the subject of the email is
-        msg: str:
         sends the email
         '''
         config = read()
-        rec = self._pull_rec()
-        sender = self.team_name + '-updates@gmail.com'
-        send(sub,[msg],[rec],sender,config)
+        sender = self.team_name.replace(' ','-') + '-updates@gmail.com'
+        email(sub,msg,sender,config)
 
     def run(self):
         td,ys,up = self.scrape()
@@ -166,4 +153,4 @@ class DSS():
                 "UPCOMING:\n{}".format(up)
                ]
         sub = self.team_name + ' Update'
-        self.email(sub,msg)
+        self.email_create(sub,msg)
