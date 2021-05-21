@@ -1,6 +1,6 @@
 # deseret-hs-sports-api
 
-Created a simple API for <a href=https://sports.deseret.com/high-school>Deseret News High School Sports</a> section.
+Moving accross the country, I still wanted to keep tabs on my brother's soccer games. In Utah there is a local site Deseret News that covers all high school sports. So I wanted to create a simple API for <a href=https://sports.deseret.com/high-school>Deseret News High School Sports</a> section.
 
 This is in its infancy right now, but will be improved as i work on it more. 
 
